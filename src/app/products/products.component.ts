@@ -19,8 +19,10 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((products: Product[]) => {
-      this.productsList = products;
+    // Observable - Subscribe helps in asynchronous processing
+    this.productService.getProducts().subscribe((response: Product[]) => {
+      this.productsList = response;
     });
+    
   }
 }
