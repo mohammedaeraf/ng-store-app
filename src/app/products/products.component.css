@@ -1,0 +1,35 @@
+/* Ensure consistent card height */
+.product-card {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Set a fixed height for the image container */
+  .card-img-container {
+    height: 400px; /* Adjust as needed */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card-img-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover; /* Ensures the image scales properly without distortion */
+  }
+  
+  /* Set a fixed height for the description */
+  .product-description {
+    height: 60px; /* Adjust as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  /* Ensure the button is always at the bottom */
+  .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+  
