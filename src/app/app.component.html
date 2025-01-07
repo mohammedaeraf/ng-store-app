@@ -1,6 +1,34 @@
 <header>
-    <h1> {{ title }}</h1>
-    <h2> Products List </h2>
+    <div class="container">
+        <h1>{{ title }}</h1>
+    </div>
 </header>
 
-<app-products></app-products>
+<nav>
+    <div class="container">
+        <ul>
+            <li>
+                <a routerLink="/">Home</a>&nbsp;
+            </li>
+            <li>
+                <a routerLink="/products">View Products</a>&nbsp;
+            </li>
+            <li>
+                <a routerLink="/categories">View Categories</a>&nbsp;
+            </li>
+            <li>
+                <a routerLink="/brands">View Brands</a>&nbsp;
+            </li>
+        </ul>
+    </div>
+</nav>
+<main>
+    <div class="container">
+        <router-outlet />
+    </div>
+</main>
+<footer>
+    <div class="container">
+        <p>&copy; 2025 My E-commerce Store. All rights reserved.</p>
+    </div>
+</footer>
