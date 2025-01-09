@@ -54,3 +54,16 @@ button[disabled] {
 .alert-success {
   color: green;
 }
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.rows10 {
+  height: 10em;
+}

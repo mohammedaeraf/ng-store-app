@@ -6,6 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Post } from './post.model';
+import { PostService } from './post.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-post',
@@ -15,29 +18,39 @@ import {
   styleUrl: './add-post.component.css',
 })
 export class AddPostComponent {
-
   postForm: FormGroup;
   isSubmitted = false;
   formValid = false;
 
   // dependency injection
-  constructor(private formBuilder: FormBuilder) {
-
+  constructor(
+    private formBuilder: FormBuilder,
+    private postService: PostService,
+    private router: Router
+  ) {
     this.postForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      body: ['', Validators.required],
+      title: ['', [Validators.required, Validators.minLength(5)]],
+      body: ['', [Validators.required, Validators.minLength(50)]],
     });
-
   }
 
+  get f() {
+    return this.postForm.controls;
+  }
 
   onSubmit() {
     if (this.postForm.valid) {
-      this.formValid = true;
-      // call Service to save the post (Assignment)
-      this.postForm.reset();
-      alert('Form submitted successfully!');
       this.isSubmitted = true;
+      this.formValid = true;
+      console.log('postForm value ==>' + JSON.stringify(this.postForm.value));
+
+      this.postService
+        .addPost(this.postForm.value)  // this.postForm.value is an instance of Post and hence is a valid argument to addPost
+        .subscribe((response: Post) => {
+          console.log(response);
+          this.postForm.reset();
+          this.router.navigate(['/posts']);
+        });
     }
   }
 }
