@@ -1,11 +1,11 @@
 <div class="product-details" *ngIf="product && product.id>0">
-    <img src="{{product.image}}" alt="Product Image" class="product-image">
+    <!-- <img src="{{product.image}}" alt="Product Image" class="product-image"> -->
     <div class="product-info">
         <h1 class="product-title">{{ product.title }}</h1>
         <p class="product-category">Category: {{ product.category }}</p>
         <p class="product-price">${{ product.price }}</p>
         <p class="product-description">
-            {{ product.description }}
+            {{ product.brand }}
         </p>
     </div>
 </div>

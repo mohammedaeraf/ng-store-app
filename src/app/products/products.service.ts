@@ -11,7 +11,7 @@ export class ProductService {
 
     // Dependency Injection of HttpClient
     constructor(private httpClient: HttpClient) {
-        this.apiUrl = 'https://fakestoreapi.com/products';
+        this.apiUrl = 'http://localhost:8080/products';
     }
 
     getProducts(): Observable<any> {
