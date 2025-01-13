@@ -1,0 +1,34 @@
+<div class="product-container">
+    <h2>Product List</h2>
+    <button class="btn add-btn" (click)="addProduct()">Add Product</button>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Brand</th>
+          <th>Category</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products; index as i">
+          <td>{{ product.id }}</td>
+          <td>{{ product.title }}</td>
+          <td>${{ product.price.toFixed(2) }}</td>
+          <td>{{ product.brand }}</td>
+          <td>{{ product.category }}</td>
+          <td>
+            <button class="btn edit-btn" (click)="editProduct(i)">Edit</button>
+          </td>
+          <td>
+            <button class="btn delete-btn" (click)="deleteProduct(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
