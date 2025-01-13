@@ -10,22 +10,24 @@
           <th>Price</th>
           <th>Brand</th>
           <th>Category</th>
-          <th>Edit</th>
-          <th>Delete</th>
+          <th colspan="3">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products; index as i">
+        <tr *ngFor="let product of productsList; index as i">
           <td>{{ product.id }}</td>
           <td>{{ product.title }}</td>
           <td>${{ product.price.toFixed(2) }}</td>
           <td>{{ product.brand }}</td>
           <td>{{ product.category }}</td>
           <td>
-            <button class="btn edit-btn" (click)="editProduct(i)">Edit</button>
+            <button class="btn view-btn" (click)="viewProduct(product.id)">View</button>
           </td>
           <td>
-            <button class="btn delete-btn" (click)="deleteProduct(i)">Delete</button>
+            <button class="btn edit-btn" (click)="editProduct(product.id)">Edit</button>
+          </td>
+          <td>
+            <button class="btn delete-btn" (click)="deleteProduct(product.id)">Delete</button>
           </td>
         </tr>
       </tbody>

@@ -40,7 +40,7 @@ export class ProductService {
   }
 
   getBrands() {
-    return ['Apple', 'Samsung', 'Sony', 'Dell', 'HP'];
+    return ['Apple', 'Samsung', 'Sony', 'Dell', 'HP', 'Acer', 'Lenovo'];
   }
 
   getCategories() {

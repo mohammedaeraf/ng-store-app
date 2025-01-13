@@ -33,7 +33,7 @@ export class AddProductComponent {
   ) {
     this.addProductForm = this.formBuilder.group({
       title: ['', [Validators.required, Validators.minLength(5)]],
-      price: ['', [Validators.required, Validators.min(1)]],
+      price: ['', [Validators.required, Validators.min(10)]],
       brand: ['', [Validators.required]],
       category: ['', [Validators.required]],
     });
@@ -64,7 +64,7 @@ export class AddProductComponent {
         .subscribe((response: Product) => {
           console.log(response);
           this.addProductForm.reset();
-          this.router.navigate(['/products']);
+          this.router.navigate(['/view-products']);
         });
     }
   }

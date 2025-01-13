@@ -41,17 +41,33 @@
     font-size: 14px;
     border-radius: 4px;
   }
-  
+
   .add-btn {
-    background-color: #28a745;
+    background-color: #373a38;
     color: white;
-    margin-bottom: 10px;
   }
   
   .add-btn:hover {
+    background-color: rgb(75, 80, 76);
+  }
+  
+  .view-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .view-btn:hover {
     background-color: #218838;
   }
-
+  
+  .edit-btn {
+    background-color: #b53b15;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background-color: #e66640;
+  }
   .edit-btn {
     background-color: #b53b15;
     color: white;

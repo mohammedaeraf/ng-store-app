@@ -17,7 +17,7 @@
         <input type="number" id="price" formControlName="price" class="form-control" />
         <div *ngIf="f['price']?.invalid && f['price']?.touched" class="error">
           <small *ngIf="f['price']?.errors?.['required']">Price is required.</small>
-          <small *ngIf="f['price']?.errors?.['min']">Price must be greater than 0</small>
+          <small *ngIf="f['price']?.errors?.['min']">Price must be greater than 10</small>
         </div>
       </div>
 

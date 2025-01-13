@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Product } from '../products/products.model';
 import { CommonModule } from '@angular/common';
+import { ProductService } from '../products/products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-products',
@@ -10,22 +12,39 @@ import { CommonModule } from '@angular/common';
   styleUrl: './view-products.component.css'
 })
 export class ViewProductsComponent {
-  products: Product[] = [
-    { id: 1, title: 'Laptop', price: 599.99, brand: 'Dell', category: 'Electronics' },
-    { id: 2, title: 'Shoes', price: 49.99, brand: 'Nike', category: 'Fashion' },
-    { id: 3, title: 'Watch', price: 199.99, brand: 'Casio', category: 'Accessories' }
-  ];
+   title: string;
+    productsList: Product[];
+  
+    // Injecting ProductService and Router
+    constructor(private productService: ProductService, private router: Router) {
+      this.title = 'Products List';
+      this.productsList = [];
+    }
+  
+    // ngOnInit is a lifecycle hook called by Angular to indicate that Angular is done creating the component
+    ngOnInit() {
+      // Observable - Subscribe helps in asynchronous processing
+      this.productService.getProducts().subscribe((response: Product[]) => {
+        this.productsList = response;
+      });
+      
+    }
 
   addProduct(): void {
-    const newProduct: Product = { id: this.products.length + 1, title: 'New Product', price: 100, brand: 'Generic', category: 'Misc' };
-    this.products.push(newProduct);
+    this.router.navigate(['/add-product']);
   }
 
-  deleteProduct(index: number): void {
-    this.products.splice(index, 1);
+  viewProduct(productId: number): void {
+    this.router.navigate(['/view-product', productId]);
   }
 
-  editProduct(index: number): void {
-    this.products.splice(index, 1);
+  deleteProduct(productId: number): void {
+    //this.router.navigate(['/delete-product', productId]);
+    // call service to delete the product
+    // reload the products list
+  }
+
+  editProduct(productId: number): void {
+    this.router.navigate(['/edit-product', productId]);
   }
 }
