@@ -1,0 +1,51 @@
+<div class="container">
+    <h2>{{ title }}</h2>
+  
+    <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+  
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" id="title" formControlName="title" class="form-control" />
+        <div *ngIf="f['title']?.invalid && f['title']?.touched" class="error">
+          <small *ngIf="f['title']?.errors?.['required']">Title is required.</small>
+          <small *ngIf="f['title']?.errors?.['minlength']">Title must be at least 5 characters long.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" formControlName="price" class="form-control" />
+        <div *ngIf="f['price']?.invalid && f['price']?.touched" class="error">
+          <small *ngIf="f['price']?.errors?.['required']">Price is required.</small>
+          <small *ngIf="f['price']?.errors?.['min']">Price must be greater than 0</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="brand">Brand:</label>
+        <select id="brand" formControlName="brand" class="form-control">
+          <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
+        </select>
+        <div *ngIf="f['brand']?.invalid && f['brand']?.touched" class="error">
+          <small *ngIf="f['brand']?.errors?.['required']">Brand is required.</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category:</label>
+        <select id="category" formControlName="category" class="form-control">
+          <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+        </select>
+        <div *ngIf="f['category']?.invalid && f['category']?.touched" class="error">
+          <small *ngIf="f['category']?.errors?.['required']">Category is required.</small>
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="addProductForm.invalid">Submit</button>
+  
+    </form>
+  </div>
+  
+  <div *ngIf="isSubmitted && formValid" class="alert alert-success">
+    Form submitted successfully!
+  </div>
