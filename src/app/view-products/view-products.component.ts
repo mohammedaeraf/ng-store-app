@@ -16,17 +16,13 @@ export class ViewProductsComponent {
   title: string;
   productsList: Product[];
   filteredProductsList: Product[];
-  paginatedProductsList: Product[];
-  searchQuery: string = '';
-  currentPage: number = 1;
-  pageSize: number = 5;
+  searchQuery: string = 'Enter Search Text here..';
 
   // Injecting ProductService and Router
   constructor(private productService: ProductService, private router: Router) {
     this.title = 'Products List';
     this.productsList = [];
     this.filteredProductsList = [];
-    this.paginatedProductsList = [];
   }
 
   // ngOnInit is a lifecycle hook called by Angular to indicate that Angular is done creating the component
@@ -38,17 +34,7 @@ export class ViewProductsComponent {
     this.productService.getProducts().subscribe((products: Product[]) => {
       this.productsList = products;
       this.filteredProductsList = products;
-      this.updatePaginatedProductsList();
     });
-  }
-
-  updatePaginatedProductsList(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.paginatedProductsList = this.filteredProductsList.slice(
-      startIndex,
-      endIndex
-    );
   }
 
   onSearch(): void {
@@ -59,24 +45,9 @@ export class ViewProductsComponent {
     } else {
       this.filteredProductsList = this.productsList;
     }
-    this.currentPage = 1;
-    this.updatePaginatedProductsList();
-  }
-
-  get totalPages(): number[] {
-    const totalPages = Math.ceil(
-      this.filteredProductsList.length / this.pageSize
-    );
-    const pages: number[] = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(i);
-    }
-    return pages;
-  }
-  
-  changePage(page: number): void {
-    this.currentPage = page;
-    this.updatePaginatedProductsList();
+    // add below lines for pagination
+    // this.currentPage = 1;
+    // this.updatePaginatedProductsList();
   }
 
   addProduct(): void {
@@ -91,6 +62,7 @@ export class ViewProductsComponent {
     const confirmation = confirm(
       'Are you sure you want to delete this product?'
     );
+    
     if (confirmation) {
       this.productService.deleteProduct(productId).subscribe(() => {
         this.loadProducts();

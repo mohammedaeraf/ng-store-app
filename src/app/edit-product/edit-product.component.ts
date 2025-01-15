@@ -33,16 +33,21 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.getProductById(this.productId).subscribe((product: Product) => {
-      this.editProductForm.patchValue(product);
+      console.log(product);
+      this.editProductForm.patchValue(product); // show the data of the product in the form
     });
   }
 
   onSubmit(): void {
     if (this.editProductForm.valid) {
+      console.log('Going to update product now...');
+      console.log(this.editProductForm.value);
+
       const updatedProduct: Product = {
         id: this.productId,
         ...this.editProductForm.value
       };
+      
       console.log(updatedProduct);
       this.productService.updateProduct(updatedProduct).subscribe(() => {
         this.router.navigate(['/view-products']);
