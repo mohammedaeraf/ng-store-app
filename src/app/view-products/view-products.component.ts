@@ -9,26 +9,29 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './view-products.component.html',
-  styleUrl: './view-products.component.css'
+  styleUrl: './view-products.component.css',
 })
 export class ViewProductsComponent {
-   title: string;
-    productsList: Product[];
-  
-    // Injecting ProductService and Router
-    constructor(private productService: ProductService, private router: Router) {
-      this.title = 'Products List';
-      this.productsList = [];
-    }
-  
-    // ngOnInit is a lifecycle hook called by Angular to indicate that Angular is done creating the component
-    ngOnInit() {
-      // Observable - Subscribe helps in asynchronous processing
-      this.productService.getProducts().subscribe((response: Product[]) => {
-        this.productsList = response;
-      });
-      
-    }
+  title: string;
+  productsList: Product[];
+
+  // Injecting ProductService and Router
+  constructor(private productService: ProductService, private router: Router) {
+    this.title = 'Products List';
+    this.productsList = [];
+  }
+
+
+  // ngOnInit is a lifecycle hook called by Angular to indicate that Angular is done creating the component
+  ngOnInit() {
+    this.loadProducts();
+  }
+
+  loadProducts(): void {
+    this.productService.getProducts().subscribe((products: Product[]) => {
+      this.productsList = products;
+    });
+  }
 
   addProduct(): void {
     this.router.navigate(['/add-product']);
@@ -39,9 +42,12 @@ export class ViewProductsComponent {
   }
 
   deleteProduct(productId: number): void {
-    //this.router.navigate(['/delete-product', productId]);
-    // call service to delete the product
-    // reload the products list
+    const confirmation = confirm('Are you sure you want to delete this product?');
+    if (confirmation) {
+      this.productService.deleteProduct(productId).subscribe(() => {
+        this.loadProducts();
+      });
+    }
   }
 
   editProduct(productId: number): void {

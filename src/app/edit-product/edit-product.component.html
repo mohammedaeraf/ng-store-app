@@ -1,0 +1,22 @@
+<div class="edit-product-container">
+    <h2>Edit Product</h2>
+    <form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="title">Title:</label>
+        <input id="title" formControlName="title" type="text" />
+      </div>
+      <div>
+        <label for="price">Price:</label>
+        <input id="price" formControlName="price" type="number" />
+      </div>
+      <div>
+        <label for="brand">Brand:</label>
+        <input id="brand" formControlName="brand" type="text" />
+      </div>
+      <div>
+        <label for="category">Category:</label>
+        <input id="category" formControlName="category" type="text" />
+      </div>
+      <button type="submit" [disabled]="editProductForm.invalid">Update Product</button>
+    </form>
+  </div>
