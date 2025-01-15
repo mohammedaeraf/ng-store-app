@@ -3,22 +3,31 @@ import { Product } from '../products/products.model';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../products/products.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-view-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './view-products.component.html',
   styleUrl: './view-products.component.css',
 })
 export class ViewProductsComponent {
   title: string;
   productsList: Product[];
+  filteredProductsList: Product[];
+  paginatedProductsList: Product[];
+  searchQuery: string = '';
+  currentPage: number = 1;
+  pageSize: number = 5;
+
 
   // Injecting ProductService and Router
   constructor(private productService: ProductService, private router: Router) {
     this.title = 'Products List';
     this.productsList = [];
+    this.filteredProductsList = [];
+    this.paginatedProductsList = [];
   }
 
 
@@ -30,7 +39,36 @@ export class ViewProductsComponent {
   loadProducts(): void {
     this.productService.getProducts().subscribe((products: Product[]) => {
       this.productsList = products;
+      this.filteredProductsList = products;
+      this.updatePaginatedProductsList();
     });
+  }
+
+  updatePaginatedProductsList(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedProductsList = this.filteredProductsList.slice(startIndex, endIndex);
+  }
+
+  onSearch(): void {
+    if (this.searchQuery) {
+      this.filteredProductsList = this.productsList.filter(product =>
+        product.title.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+    } else {
+      this.filteredProductsList = this.productsList;
+    }
+    this.currentPage = 1;
+    this.updatePaginatedProductsList();
+  }
+  
+  get totalPages(): number[] {
+    const totalPages = Math.ceil(this.filteredProductsList.length / this.pageSize);
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
+  }
+  changePage(page: number): void {
+    this.currentPage = page;
+    this.updatePaginatedProductsList();
   }
 
   addProduct(): void {
@@ -53,4 +91,6 @@ export class ViewProductsComponent {
   editProduct(productId: number): void {
     this.router.navigate(['/edit-product', productId]);
   }
+
+  
 }

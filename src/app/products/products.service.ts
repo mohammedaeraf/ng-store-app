@@ -44,6 +44,6 @@ export class ProductService {
   }
 
   getCategories() {
-    return ['Mobile', 'Laptop', 'Tablet', 'Camera'];
+    return ['Mobiles', 'Laptops', 'Desktops','Tablets', 'Camera', 'Printers'];
   }
 }
