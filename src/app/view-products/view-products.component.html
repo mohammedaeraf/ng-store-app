@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of filteredProductsList; index as i">
+      <tr *ngFor="let product of paginatedProductsList; index as i">
         <td>{{ product.id }}</td>
         <td>{{ product.title }}</td>
         <td>${{ product.price.toFixed(2) }}</td>
@@ -35,5 +35,16 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="pagination">
+    <button
+      class="btn"
+      *ngFor="let page of pages"
+      (click)="changePage(page)"
+      [class.active]="currentPage === page"
+    >
+      {{ page }}
+    </button>
+  </div>
  
 </div>
